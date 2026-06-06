@@ -133,8 +133,8 @@ export const Hero = () => {
               <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </a>
             <a
-              href="/Rizwana_Naznin_CV.pdf"
-              download="Rizwana_Naznin_CV.pdf"
+              href="/Rizwana_CV.pdf"
+              download="Rizwana_CV.pdf"
               className="inline-flex items-center gap-2 border border-primary/50 bg-primary/10 text-primary font-semibold px-6 py-3 rounded-full hover:scale-105 hover:bg-primary/20 transition-all cursor-pointer shadow-lg hover:shadow-primary/10"
             >
               <Download className="w-4 h-4" />

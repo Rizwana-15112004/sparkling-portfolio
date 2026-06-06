@@ -48,8 +48,8 @@ export const Navbar = () => {
         </div>
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="/Rizwana_Naznin_CV.pdf"
-            download="Rizwana_Naznin_CV.pdf"
+            href="/Rizwana_CV.pdf"
+            download="Rizwana_CV.pdf"
             className="inline-flex items-center gap-1.5 border border-primary/50 bg-primary/10 text-primary hover:bg-primary/20 font-medium text-sm px-4 py-2 rounded-full hover:scale-105 transition-transform cursor-pointer"
           >
             Download CV
