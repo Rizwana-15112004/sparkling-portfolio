@@ -46,13 +46,22 @@ export const Navbar = () => {
             </a>
           ))}
         </div>
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center gap-2 bg-primary text-primary-foreground font-medium text-sm px-4 py-2 rounded-full hover:scale-105 transition-transform"
-        >
-          Hire Me
-          <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground animate-pulse" />
-        </a>
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href="/Rizwana_Naznin_CV.pdf"
+            download="Rizwana_Naznin_CV.pdf"
+            className="inline-flex items-center gap-1.5 border border-primary/50 bg-primary/10 text-primary hover:bg-primary/20 font-medium text-sm px-4 py-2 rounded-full hover:scale-105 transition-transform cursor-pointer"
+          >
+            Download CV
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-medium text-sm px-4 py-2 rounded-full hover:scale-105 transition-transform"
+          >
+            Hire Me
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground animate-pulse" />
+          </a>
+        </div>
       </div>
     </motion.nav>
   );

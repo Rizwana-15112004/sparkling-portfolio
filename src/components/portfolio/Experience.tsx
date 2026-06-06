@@ -23,11 +23,11 @@ const timeline = [
   {
     year: "2023–2026",
     title: "Bachelor of Computer Applications (BCA)",
-    org: "MG University, Kerala (Graduated)",
+    org: "MG University, Kerala — Graduated",
     points: [
       "Specialization: Full-Stack Development & AI-Integrated Applications",
       "Completed degree with zero academic backlogs",
-      "Final Year Project: SDRRS — Smart Disaster Response System",
+      "Graduation Project: SDRRS — Smart Disaster Response System",
     ],
   },
 ];

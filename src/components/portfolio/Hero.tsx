@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, ExternalLink, MapPin } from "lucide-react";
-import { TechOrbit } from "./TechOrbit";
+import { ArrowDown, Github, ExternalLink, MapPin, Download } from "lucide-react";
+import { LottieAnimation } from "./LottieAnimation";
 import { useEffect, useState } from "react";
 
 const ROLES = [
   "Full-Stack Developer",
   "React + Django Builder",
-  "Freelance Project Shipper",
   "BCA Graduate",
+  "Vibe Coder Extraordinaire",
+  "Freelance Project Shipper",
 ];
 
 export const Hero = () => {
@@ -112,7 +113,7 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
           >
-            BCA graduate who ships real software. I delivered a Django web app
+            BCA Graduate &amp; Vibe Coder who ships real software with maximum vibes. I delivered a Django web app
             to a paying freelance client and built{" "}
             <span className="text-primary font-semibold">5 applications</span> using React,
             TypeScript, Python, Django, Docker &amp; the Google Vertex AI Gemini API.
@@ -132,6 +133,14 @@ export const Hero = () => {
               <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </a>
             <a
+              href="/Rizwana_Naznin_CV.pdf"
+              download="Rizwana_Naznin_CV.pdf"
+              className="inline-flex items-center gap-2 border border-primary/50 bg-primary/10 text-primary font-semibold px-6 py-3 rounded-full hover:scale-105 hover:bg-primary/20 transition-all cursor-pointer shadow-lg hover:shadow-primary/10"
+            >
+              <Download className="w-4 h-4" />
+              Download CV
+            </a>
+            <a
               href="https://github.com/Rizwana-15112004"
               target="_blank"
               rel="noopener noreferrer"
@@ -142,7 +151,7 @@ export const Hero = () => {
               <ExternalLink className="w-3 h-3 opacity-60" />
             </a>
             <a
-              href="https://vercel.com/rizwana-naznin-c-as-projects"
+              href="https://vercel.com/rizwanas-projects-a23354e2"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-border bg-card/50 backdrop-blur-sm text-foreground font-semibold px-6 py-3 rounded-full hover:border-accent hover:text-accent transition-all"
@@ -162,8 +171,8 @@ export const Hero = () => {
             {[
               { value: "5+", label: "Apps Deployed" },
               { value: "1", label: "Paying Client" },
-              { value: "BCA", label: "Graduate 2026" },
               { value: "0", label: "Backlogs" },
+              { value: "2026", label: "BCA Grad" },
             ].map((stat, i) => (
               <div key={i}>
                 <div className="font-display font-bold text-4xl text-primary">
@@ -185,9 +194,9 @@ export const Hero = () => {
           </motion.div>
           </div>
 
-          {/* Right: animated tech orbit */}
+          {/* Right: animated Lottie character */}
           <div className="hidden lg:block">
-            <TechOrbit />
+            <LottieAnimation />
           </div>
         </div>
       </div>

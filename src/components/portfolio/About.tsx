@@ -20,8 +20,8 @@ const highlights = [
   },
   {
     icon: GraduationCap,
-    title: "BCA Graduate",
-    desc: "BCA Graduate from MG University — Class of 2026, immediate joiner.",
+    title: "Zero Backlogs",
+    desc: "BCA Graduate from MG University (May 2026) — Immediate joiner.",
   },
 ];
 
@@ -38,13 +38,13 @@ export const About = () => {
         >
           <p className="font-mono text-sm text-primary mb-4">{"// about"}</p>
           <h2 className="font-display font-bold text-5xl md:text-7xl mb-8 leading-tight">
-            A BCA graduate who <span className="text-gradient-primary">ships real software</span>.
+            A BCA graduate who already <span className="text-gradient-primary">ships real software</span>.
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            I'm a BCA graduate from MG University — and I didn't wait for graduation
-            to start building. I delivered a real Django web app to a paying freelance client,
-            built an offline-resilient IoT rescue system as my graduation project, and integrated
-            Google Vertex AI Gemini into a working Python + React app. I learn by shipping.
+            I'm a BCA graduate from MG University — and I build with pure energy and vibes. 
+            I delivered a real Django web app to a paying freelance client, built an offline-resilient 
+            IoT rescue system as my graduation project, and integrated Google Vertex AI Gemini 
+            into a working Python + React app. I learn by shipping.
           </p>
         </motion.div>
 

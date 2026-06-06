@@ -9,6 +9,7 @@ const projects = [
     desc: "Full-stack Django web app delivered to a paying client end-to-end — donor registration, blood-group filtering, and location-based search using optimized Django ORM.",
     tags: ["Django", "Python", "MySQL", "MVT", "REST"],
     github: "https://github.com/Rizwana-15112004/blood-connect-pro",
+    live: "https://rizwana-15112004.github.io/blood-connect-pro/",
     featured: true,
     accent: "primary",
   },
@@ -18,7 +19,19 @@ const projects = [
     year: "2024–2025",
     desc: "Dual-mode real-time platform processing live IoT sensor data, BLE indoor geolocation & rescue triage. Offline-resilient with battery-backed local server failover.",
     tags: ["React", "TypeScript", "Python", "PostgreSQL", "WebSockets", "IoT"],
+    github: "https://github.com/Rizwana-15112004/secure-haven-control",
+    live: "https://secure-haven-control-9ed7-1e5vgba2p-rizwanas-projects-a23354e2.vercel.app/",
     featured: true,
+    accent: "accent",
+  },
+  {
+    name: "Design to Delight",
+    role: "React Internship Assignment",
+    year: "2025",
+    desc: "Pixel-accurate, fully responsive React app capturing the 'Websiteble Global' design spec. Implemented full Docker containerization with Nginx reverse proxy and multi-stage builds.",
+    tags: ["React", "TypeScript", "Docker", "Nginx", "Vercel"],
+    github: "https://github.com/Rizwana-15112004/design-to-delight",
+    live: "https://design-to-delight-gamma.vercel.app/",
     accent: "accent",
   },
   {
@@ -27,31 +40,96 @@ const projects = [
     year: "2024",
     desc: "Production Python backend integrated with Google Vertex AI Gemini API. Agentic AI pipeline that eliminated 100% manual property tagging effort.",
     tags: ["Vertex AI", "Python", "React", "Agentic AI"],
+    github: "https://github.com/Rizwana-15112004/realtysocial-ai",
+    live: "https://realtysocial-ai-main.vercel.app/",
     accent: "primary",
   },
   {
-    name: "Design to Delight",
-    role: "React Internship Assignment",
-    year: "2025",
-    desc: "Pixel-accurate, fully responsive React app translating a design spec into a live-deployed product with a public Vercel URL.",
-    tags: ["React", "TypeScript", "Tailwind", "Vercel"],
-    github: "https://github.com/Rizwana-15112004/design-to-delight",
+    name: "ICSET 2024 — Vertex AI Gemini API",
+    role: "Professional Certification",
+    year: "2024",
+    desc: "Official recognition from the ICT Academy of Kerala & Google for Developers for completing the 'Generative AI with Vertex AI Gemini API' hands-on workshop at ICSET 2024.",
+    tags: ["Vertex AI", "Gemini API", "Generative AI", "ICT Academy", "Google"],
+    live: "https://drive.google.com/file/d/1ZmbQqka0FmZWJFNwgYVopPQaveeDAD9_/view?usp=drive_link",
     accent: "accent",
   },
   {
-    name: "Docker Containerization POC",
-    role: "DevOps Project",
+    name: "Sammunat UI Dashboard",
+    role: "Frontend Assignment",
     year: "2025",
-    desc: "Containerized a Django app — authored Dockerfiles, built images, configured port mapping & environment variables with full POC documentation.",
-    tags: ["Docker", "Django", "Python", "DevOps"],
+    desc: "A responsive web application featuring modern user interfaces and dynamic data rendering. Developed to match strict design specifications.",
+    tags: ["React", "TypeScript", "Tailwind", "Vercel"],
+    github: "https://github.com/Rizwana-15112004/sammunat-assignment",
+    live: "https://sammunat-internship-launch.vercel.app/",
     accent: "primary",
   },
   {
-    name: "VitaFlow — Blood Donation Platform",
-    role: "Full-Stack Build",
-    year: "2024",
-    desc: "Full-stack donor matching app with MySQL backend, blood-group + location filtering, PHP/Python REST APIs and a React frontend.",
-    tags: ["React", "Python", "PHP", "MySQL", "REST"],
+    name: "Algorithmic Trading Bot",
+    role: "Python Engineering",
+    year: "2026",
+    desc: "An automated quantitative trading script built in Python. Designed to parse market data and execute logical trading operations.",
+    tags: ["Python", "Automation", "Finance", "Algorithms"],
+    github: "https://github.com/Rizwana-15112004/traidingbot",
+    accent: "accent",
+  },
+  {
+    name: "RapidApp AI Studio",
+    role: "AI Workflow Builder",
+    year: "2026",
+    desc: "An AI-powered studio application enabling rapid concept generation and layout configuration.",
+    tags: ["React", "TypeScript", "AI Integration", "Vercel"],
+    github: "https://github.com/Rizwana-15112004/rapidapp-ai-studio",
+    live: "https://rapidapp-ai-studio.vercel.app/",
+    accent: "primary",
+  },
+  {
+    name: "Fit Hub Connect",
+    role: "Frontend Web App",
+    year: "2026",
+    desc: "A wellness and fitness platform interface designed to connect users with personalized training resources and communities.",
+    tags: ["React", "TypeScript", "Tailwind", "Responsive Design"],
+    github: "https://github.com/Rizwana-15112004/fit-hub-connect",
+    live: "https://fit-hub-connect.vercel.app/",
+    accent: "accent",
+  },
+  {
+    name: "Smart Bookings",
+    role: "Scheduling Application",
+    year: "2026",
+    desc: "A robust scheduling platform featuring dynamic calendar interfaces and streamlined user-booking flows.",
+    tags: ["React", "UI/UX", "State Management"],
+    github: "https://github.com/Rizwana-15112004/smart-bookings",
+    live: "https://smart-bookings-eight.vercel.app/",
+    accent: "primary",
+  },
+  {
+    name: "Clinic Connect Pro",
+    role: "Healthcare Portal",
+    year: "2026",
+    desc: "A professional medical web portal allowing patients to browse healthcare services and easily manage clinic appointments.",
+    tags: ["React", "TypeScript", "Vite", "Healthcare"],
+    github: "https://github.com/Rizwana-15112004/clinic-connect-pro",
+    live: "https://clinic-connect-pro-sepia.vercel.app/",
+    accent: "accent",
+  },
+  {
+    name: "Salon Style Bookings",
+    role: "Business Dashboard App",
+    year: "2026",
+    desc: "A comprehensive appointment management web application tailored specifically for salon and spa operations.",
+    tags: ["React", "Web App", "Booking Flow"],
+    github: "https://github.com/Rizwana-15112004/salon-style-bookings",
+    live: "https://salon-style-bookings.vercel.app/",
+    accent: "primary",
+  },
+  {
+    name: "Smart Enquiry Hub",
+    role: "Admin Dashboard",
+    year: "2026",
+    desc: "A centralized customer support management portal managing incoming inquiries and tracking ticket resolutions.",
+    tags: ["React", "Dashboard UI", "Frontend Logic"],
+    github: "https://github.com/Rizwana-15112004/smart-enquiry-hub",
+    live: "https://smart-enquiry-hub.vercel.app/",
     accent: "accent",
   },
 ];
@@ -115,9 +193,14 @@ export const Projects = () => {
                       {p.name}
                     </h3>
                   </div>
-                  <div className="shrink-0 p-3 rounded-full border border-border group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 group-hover:rotate-45">
+                  <a 
+                    href={p.live || p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 p-3 rounded-full border border-border group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 group-hover:rotate-45"
+                  >
                     <ArrowUpRight className="w-5 h-5" />
-                  </div>
+                  </a>
                 </div>
 
                 <p className="text-muted-foreground leading-relaxed mb-6">{p.desc}</p>
@@ -133,17 +216,31 @@ export const Projects = () => {
                   ))}
                 </div>
 
-                {p.github && (
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all"
-                  >
-                    <Github className="w-4 h-4" />
-                    View on GitHub
-                  </a>
-                )}
+                <div className="flex items-center gap-6">
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all font-semibold"
+                    >
+                      <ArrowUpRight className="w-4 h-4" />
+                      {p.role === "Professional Certification" ? "View Certificate" : "Live Demo"}
+                    </a>
+                  )}
+
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:gap-3 transition-all"
+                    >
+                      <Github className="w-4 h-4" />
+                      View on GitHub
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.article>
           ))}

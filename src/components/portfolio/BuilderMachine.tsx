@@ -256,7 +256,7 @@ export const BuilderMachine = () => {
             transition={{ duration: 1.2, repeat: Infinity }}
           />
           <text x="74" y="372" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="hsl(230 12% 65%)">
-            BUILD_STATUS: shipping production-grade software · 0 backlogs · paid client delivered ✓
+            BUILD_STATUS: BCA graduate · vibe coder · shipping production-grade software · paid client delivered ✓
           </text>
         </g>
       </svg>
