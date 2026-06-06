@@ -1,3 +1,3 @@
-# Rizwana Naznin C A — Portfolio
+# Welcome to your Lovable project
 
 TODO: Document your project here

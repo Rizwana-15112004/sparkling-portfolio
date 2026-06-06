@@ -7,7 +7,7 @@ const lines = [
 ];
 
 const body = [
-  ["  name:", "'Rizwana Naznin C A'"],
+  ["  name:", "'Rizwana Naznin'"],
   ["  role:", "'Full-Stack Developer'"],
   ["  location:", "'Ernakulam, Kerala'"],
   ["  stack:", "['React', 'Django', 'Python']"],

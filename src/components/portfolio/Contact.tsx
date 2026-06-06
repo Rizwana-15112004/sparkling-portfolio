@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Github, ExternalLink, ArrowUpRight } from "lucide-react";
 
 const contacts = [
-  { icon: Mail, label: "Email", value: "rizwananazninca@gmail.com", href: "https://mail.google.com/mail/?view=cm&fs=1&to=rizwananazninca@gmail.com&su=Contact%20from%20Portfolio" },
+  { icon: Mail, label: "Email", value: "rizwananazninca@gmail.com", href: "mailto:rizwananazninca@gmail.com" },
   { icon: Phone, label: "Phone", value: "+91 8113003356", href: "tel:+918113003356" },
   { icon: Github, label: "GitHub", value: "Rizwana-15112004", href: "https://github.com/Rizwana-15112004" },
-  { icon: ExternalLink, label: "Portfolio", value: "vercel.com/rizwanas-projects", href: "https://vercel.com/rizwanas-projects-a23354e2" },
+  { icon: ExternalLink, label: "Portfolio", value: "vercel.com/rizwana-naznin-c-as-projects", href: "https://vercel.com/rizwana-naznin-c-as-projects" },
 ];
 
 export const Contact = () => {
@@ -33,44 +33,13 @@ export const Contact = () => {
             Remote, hybrid, or on-site across Kerala &amp; beyond.
           </p>
 
-          <form 
-            action="https://formsubmit.co/rizwananazninca@gmail.com" 
-            method="POST"
-            className="max-w-lg mx-auto flex flex-col gap-4 text-left"
+          <a
+            href="mailto:rizwananazninca@gmail.com"
+            className="group inline-flex items-center gap-3 bg-primary text-primary-foreground font-display font-bold text-xl md:text-2xl px-8 py-5 rounded-full hover:scale-105 transition-transform glow"
           >
-            <input type="hidden" name="_subject" value="New Portfolio Contact Submission!" />
-            <input type="hidden" name="_captcha" value="false" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input 
-                type="text" 
-                name="name" 
-                placeholder="Name" 
-                required
-                className="px-5 py-4 rounded-2xl border border-border bg-secondary/30 backdrop-blur-sm focus:outline-none focus:border-primary/50 transition-colors text-foreground w-full"
-              />
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="Email Address" 
-                required
-                className="px-5 py-4 rounded-2xl border border-border bg-secondary/30 backdrop-blur-sm focus:outline-none focus:border-primary/50 transition-colors text-foreground w-full"
-              />
-            </div>
-            <textarea 
-              name="message" 
-              placeholder="Tell me about your project..." 
-              required
-              rows={4}
-              className="px-5 py-4 rounded-2xl border border-border bg-secondary/30 backdrop-blur-sm focus:outline-none focus:border-primary/50 transition-colors text-foreground resize-none w-full"
-            />
-            <button
-              type="submit"
-              className="group flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-lg px-8 py-4 rounded-2xl hover:scale-[1.02] hover:bg-primary/90 transition-all glow w-full mt-2"
-            >
-              Start a conversation
-              <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-            </button>
-          </form>
+            Start a conversation
+            <ArrowUpRight className="w-6 h-6 group-hover:rotate-45 transition-transform" />
+          </a>
         </motion.div>
 
         <motion.div

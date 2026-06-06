@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Github, ExternalLink, MapPin } from "lucide-react";
-import { LottieAnimation } from "./LottieAnimation";
+import { TechOrbit } from "./TechOrbit";
 import { useEffect, useState } from "react";
 
 const ROLES = [
   "Full-Stack Developer",
   "React + Django Builder",
   "Freelance Project Shipper",
-  "BCA Final Year Student",
+  "BCA Graduate",
 ];
 
 export const Hero = () => {
@@ -112,7 +112,7 @@ export const Hero = () => {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
           >
-            Final-year BCA student who ships real software. I delivered a Django web app
+            BCA graduate who ships real software. I delivered a Django web app
             to a paying freelance client and built{" "}
             <span className="text-primary font-semibold">5 applications</span> using React,
             TypeScript, Python, Django, Docker &amp; the Google Vertex AI Gemini API.
@@ -142,7 +142,7 @@ export const Hero = () => {
               <ExternalLink className="w-3 h-3 opacity-60" />
             </a>
             <a
-              href="https://vercel.com/rizwanas-projects-a23354e2"
+              href="https://vercel.com/rizwana-naznin-c-as-projects"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-border bg-card/50 backdrop-blur-sm text-foreground font-semibold px-6 py-3 rounded-full hover:border-accent hover:text-accent transition-all"
@@ -162,8 +162,8 @@ export const Hero = () => {
             {[
               { value: "5+", label: "Apps Deployed" },
               { value: "1", label: "Paying Client" },
+              { value: "BCA", label: "Graduate 2026" },
               { value: "0", label: "Backlogs" },
-              { value: "2026", label: "BCA Grad" },
             ].map((stat, i) => (
               <div key={i}>
                 <div className="font-display font-bold text-4xl text-primary">
@@ -185,9 +185,9 @@ export const Hero = () => {
           </motion.div>
           </div>
 
-          {/* Right: animated Lottie character */}
+          {/* Right: animated tech orbit */}
           <div className="hidden lg:block">
-            <LottieAnimation />
+            <TechOrbit />
           </div>
         </div>
       </div>
