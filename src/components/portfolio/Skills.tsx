@@ -83,7 +83,7 @@ const categories = [
 
 export const Skills = () => {
   return (
-    <section id="skills" className="py-32 relative noise">
+    <section id="skills" className="py-32 relative">
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -93,13 +93,13 @@ export const Skills = () => {
           className="max-w-4xl mb-16"
         >
           <p className="font-mono text-sm text-primary mb-3 flex items-center gap-2">
-            <Cpu className="w-4 h-4" />
+            <Cpu className="w-4 h-4 text-accent" />
             {"// TECHNICAL ARSENAL"}
           </p>
-          <h2 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">
-            Production Skills &amp; <span className="text-gradient-aurora">Proficiencies</span>.
+          <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">
+            Production Skills &amp; <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Proficiencies</span>.
           </h2>
-          <p className="text-lg text-muted-foreground font-outfit">
+          <p className="text-lg text-muted-foreground font-sans">
             Proven technologies I ship production applications with — tested across client projects, assignments, and AI pipelines.
           </p>
         </motion.div>
@@ -113,11 +113,11 @@ export const Skills = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="glass-card p-5 rounded-2xl border border-white/10"
+              className="glass-card p-5"
             >
               <div className="flex items-center justify-between mb-2.5">
                 <span className="font-mono text-xs md:text-sm font-semibold text-foreground">{p.name}</span>
-                <span className="font-mono text-xs font-bold text-primary">{p.percentage}%</span>
+                <span className="font-mono text-xs font-bold text-accent">{p.percentage}%</span>
               </div>
               <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
                 <motion.div
@@ -141,20 +141,20 @@ export const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="glass-card group relative p-6 rounded-2xl border border-white/10 hover:border-primary/50 transition-all duration-300"
+              className="glass-card group relative p-6"
             >
               <div className="flex items-center gap-3 mb-5">
                 <div className="p-2 rounded-xl bg-primary/10 border border-primary/20 text-primary">
-                  <cat.icon className="w-5 h-5" />
+                  <cat.icon className="w-5 h-5 text-accent" />
                 </div>
-                <h3 className="font-syne font-bold text-xl">{cat.title}</h3>
+                <h3 className="font-display font-bold text-xl text-white">{cat.title}</h3>
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 {cat.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group/item flex flex-col items-center justify-center gap-2 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 hover:bg-white/10 transition-all cursor-default"
+                    className="group/item flex flex-col items-center justify-center gap-2 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-accent/50 hover:bg-white/10 transition-all cursor-default"
                     title={skill.name}
                   >
                     <img
@@ -178,4 +178,3 @@ export const Skills = () => {
     </section>
   );
 };
-

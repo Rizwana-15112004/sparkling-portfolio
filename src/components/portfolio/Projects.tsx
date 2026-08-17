@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Github, Star, Search, Filter, X, Award, Download, ExternalLink } from "lucide-react";
+import { Github, Star, Search, X, Award, Download, ExternalLink } from "lucide-react";
 
 export interface ProjectItem {
   name: string;
@@ -44,7 +44,7 @@ const projects: ProjectItem[] = [
     name: "Design to Delight",
     role: "React Internship Assignment",
     year: "2025",
-    desc: "Pixel-accurate, fully responsive React app capturing the 'Websiteble Global' design spec. Implemented full Docker containerization with Nginx reverse proxy and multi-stage builds.",
+    desc: "Pixel-accurate, fully responsive React app capturing the 'Websiteble Global' design spec. Implemented full Docker containerization with Nginx reverse proxy.",
     tags: ["React", "TypeScript", "Docker", "Nginx", "Vercel"],
     github: "https://github.com/Rizwana-15112004/design-to-delight",
     live: "https://design-to-delight-gamma.vercel.app/",
@@ -97,71 +97,6 @@ const projects: ProjectItem[] = [
     accent: "primary",
     category: "Assignments",
   },
-  {
-    name: "Algorithmic Trading Bot",
-    role: "Python Engineering",
-    year: "2026",
-    desc: "An automated quantitative trading script built in Python. Designed to parse market data and execute logical trading operations.",
-    tags: ["Python", "Automation", "Finance", "Algorithms"],
-    github: "https://github.com/Rizwana-15112004/traidingbot",
-    accent: "accent",
-    category: "Full-Stack",
-  },
-  {
-    name: "Fit Hub Connect",
-    role: "Frontend Web App",
-    year: "2026",
-    desc: "A wellness and fitness platform interface designed to connect users with personalized training resources and communities.",
-    tags: ["React", "TypeScript", "Tailwind", "Responsive Design"],
-    github: "https://github.com/Rizwana-15112004/fit-hub-connect",
-    live: "https://fit-hub-connect.vercel.app/",
-    accent: "accent",
-    category: "Full-Stack",
-  },
-  {
-    name: "Clinic Connect Pro",
-    role: "Healthcare Portal",
-    year: "2026",
-    desc: "A professional medical web portal allowing patients to browse healthcare services and easily manage clinic appointments.",
-    tags: ["React", "TypeScript", "Vite", "Healthcare"],
-    github: "https://github.com/Rizwana-15112004/clinic-connect-pro",
-    live: "https://clinic-connect-pro-sepia.vercel.app/",
-    accent: "accent",
-    category: "Full-Stack",
-  },
-  {
-    name: "Smart Bookings",
-    role: "Scheduling Application",
-    year: "2026",
-    desc: "A robust scheduling platform featuring dynamic calendar interfaces and streamlined user-booking flows.",
-    tags: ["React", "UI/UX", "State Management"],
-    github: "https://github.com/Rizwana-15112004/smart-bookings",
-    live: "https://smart-bookings-eight.vercel.app/",
-    accent: "primary",
-    category: "Full-Stack",
-  },
-  {
-    name: "Salon Style Bookings",
-    role: "Business Dashboard App",
-    year: "2026",
-    desc: "A comprehensive appointment management web application tailored specifically for salon and spa operations.",
-    tags: ["React", "Web App", "Booking Flow"],
-    github: "https://github.com/Rizwana-15112004/salon-style-bookings",
-    live: "https://salon-style-bookings.vercel.app/",
-    accent: "primary",
-    category: "Full-Stack",
-  },
-  {
-    name: "Smart Enquiry Hub",
-    role: "Admin Dashboard",
-    year: "2026",
-    desc: "A centralized customer support management portal managing incoming inquiries and tracking ticket resolutions.",
-    tags: ["React", "Dashboard UI", "Frontend Logic"],
-    github: "https://github.com/Rizwana-15112004/smart-enquiry-hub",
-    live: "https://smart-enquiry-hub.vercel.app/",
-    accent: "accent",
-    category: "Full-Stack",
-  },
 ];
 
 export const Projects = () => {
@@ -189,10 +124,7 @@ export const Projects = () => {
   });
 
   return (
-    <section id="projects" className="py-32 relative noise">
-      {/* Background glow */}
-      <div className="absolute top-1/3 left-10 w-96 h-96 bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
-
+    <section id="projects" className="py-32 relative">
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -203,14 +135,14 @@ export const Projects = () => {
         >
           <div>
             <p className="font-mono text-sm text-primary mb-3 flex items-center gap-2">
-              <Award className="w-4 h-4" />
+              <Award className="w-4 h-4 text-accent" />
               {"// SHIPPED PRODUCTION CODE"}
             </p>
-            <h2 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
-              Projects that <span className="text-gradient-aurora">shipped</span>.
+            <h2 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight">
+              Projects that <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">shipped</span>.
             </h2>
           </div>
-          <p className="text-muted-foreground max-w-md font-outfit text-base md:text-lg">
+          <p className="text-muted-foreground max-w-md font-sans text-base md:text-lg">
             Real applications. Real clients. Production deployments — not dummy tutorials.
           </p>
         </motion.div>
@@ -243,11 +175,13 @@ export const Projects = () => {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search tech stack or title..."
               className="w-full bg-card/60 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs md:text-sm text-foreground focus:outline-none focus:border-primary transition-colors placeholder:text-muted-foreground font-mono"
+              aria-label="Search Projects"
             />
             {search && (
               <button
                 onClick={() => setSearch("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                aria-label="Clear Search"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -255,26 +189,19 @@ export const Projects = () => {
           </div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid with Staggered Entrance */}
         <div className="grid lg:grid-cols-2 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((p, i) => (
               <motion.article
                 key={p.name}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: (i % 2) * 0.05 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: (i % 2) * 0.08 }}
                 className="glass-card group relative p-8 rounded-3xl overflow-hidden flex flex-col justify-between"
               >
-                {/* Accent glow on hover */}
-                <div
-                  className={`absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none ${
-                    p.accent === "primary" ? "bg-primary" : "bg-accent"
-                  }`}
-                />
-
                 <div className="relative z-10">
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div>
@@ -294,13 +221,13 @@ export const Projects = () => {
                       <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1.5 font-semibold">
                         {p.role}
                       </p>
-                      <h3 className="font-syne font-bold text-2xl md:text-3xl group-hover:text-primary transition-colors leading-tight">
+                      <h3 className="font-display font-bold text-2xl md:text-3xl text-foreground group-hover:text-accent transition-colors leading-tight">
                         {p.name}
                       </h3>
                     </div>
                   </div>
 
-                  <p className="text-muted-foreground leading-relaxed mb-6 font-outfit text-sm md:text-base">
+                  <p className="text-muted-foreground leading-relaxed mb-6 font-sans text-sm md:text-base">
                     {p.desc}
                   </p>
 
@@ -332,6 +259,7 @@ export const Projects = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-sm text-primary font-semibold hover:gap-2.5 transition-all bg-primary/10 hover:bg-primary/20 px-4 py-2 rounded-xl border border-primary/30"
+                        aria-label={`Live demo for ${p.name}`}
                       >
                         <ExternalLink className="w-4 h-4" />
                         Live Demo
@@ -345,6 +273,7 @@ export const Projects = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-foreground hover:gap-2.5 transition-all bg-white/5 hover:bg-white/10 px-4 py-2 rounded-xl border border-white/10"
+                      aria-label={`GitHub repository for ${p.name}`}
                     >
                       <Github className="w-4 h-4" />
                       View Repository
@@ -355,12 +284,6 @@ export const Projects = () => {
             ))}
           </AnimatePresence>
         </div>
-
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-16 text-muted-foreground font-mono">
-            No projects matched your current search filters.
-          </div>
-        )}
       </div>
 
       {/* Certificate Modal Lightbox */}
@@ -382,14 +305,15 @@ export const Projects = () => {
             >
               <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-4">
                 <div>
-                  <h3 className="font-syne font-bold text-xl md:text-2xl text-foreground flex items-center gap-2">
+                  <h3 className="font-display font-bold text-xl md:text-2xl text-foreground flex items-center gap-2">
                     <Award className="w-5 h-5 text-primary" /> {selectedCertificate.name}
                   </h3>
-                  <p className="text-xs font-mono text-muted-foreground">Official Verification — Google for Developers & ICT Academy</p>
+                  <p className="text-xs font-mono text-muted-foreground">Official Verification — Google for Developers &amp; ICT Academy</p>
                 </div>
                 <button
                   onClick={() => setSelectedCertificate(null)}
                   className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-foreground"
+                  aria-label="Close modal"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -404,7 +328,7 @@ export const Projects = () => {
               </div>
 
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
-                <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+                <span className="text-xs font-mono badge-emerald px-3 py-1 rounded-full flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" /> VERIFIED CERTIFICATE
                 </span>
                 <a
@@ -424,4 +348,3 @@ export const Projects = () => {
     </section>
   );
 };
-

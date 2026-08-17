@@ -52,7 +52,7 @@ export const Experience = () => {
         >
           <p className="font-mono text-sm text-primary mb-4">{"// timeline"}</p>
           <h2 className="font-display font-bold text-5xl md:text-7xl leading-tight">
-            Experience &amp; <span className="text-gradient-primary">education</span>.
+            Experience &amp; <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">education</span>.
           </h2>
         </motion.div>
 
@@ -60,7 +60,7 @@ export const Experience = () => {
           {/* Timeline */}
           <div className="lg:col-span-2 relative">
             <div className="absolute left-3 top-2 bottom-2 w-px bg-gradient-to-b from-primary via-accent to-transparent" />
-            <div className="space-y-12">
+            <div className="space-y-8">
               {timeline.map((item, i) => (
                 <motion.div
                   key={i}
@@ -71,33 +71,35 @@ export const Experience = () => {
                   className="relative pl-12"
                 >
                   <div className="absolute left-0 top-1 w-7 h-7 rounded-full border-2 border-primary bg-background flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
                   </div>
-                  <div className="font-mono text-xs text-primary mb-2">{item.year}</div>
-                  <h3 className="font-display font-bold text-2xl mb-1">{item.title}</h3>
-                  <p className="text-accent text-sm mb-4">{item.org}</p>
-                  <ul className="space-y-2">
-                    {item.points.map((pt, j) => (
-                      <li key={j} className="flex gap-3 text-muted-foreground">
-                        <span className="text-primary mt-1.5 shrink-0">▸</span>
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="glass-card p-6">
+                    <div className="font-mono text-xs text-accent font-semibold mb-1">{item.year}</div>
+                    <h3 className="font-display font-bold text-2xl mb-1 text-white">{item.title}</h3>
+                    <p className="text-primary text-sm mb-4 font-mono">{item.org}</p>
+                    <ul className="space-y-2">
+                      {item.points.map((pt, j) => (
+                        <li key={j} className="flex gap-3 text-muted-foreground font-sans text-sm">
+                          <span className="text-accent mt-0.5 shrink-0">▸</span>
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
 
-          {/* Certifications */}
+          {/* Certifications Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="p-8 rounded-3xl border border-border bg-card/50 backdrop-blur-sm h-fit lg:sticky lg:top-24"
+            className="glass-card p-8 h-fit lg:sticky lg:top-24"
           >
-            <h3 className="font-display font-bold text-2xl mb-6 flex items-center gap-2">
+            <h3 className="font-display font-bold text-2xl mb-6 flex items-center gap-2 text-white">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               Workshops &amp; Training
             </h3>
@@ -105,7 +107,7 @@ export const Experience = () => {
               {certs.map((c, i) => (
                 <li
                   key={i}
-                  className="text-sm text-muted-foreground border-l-2 border-border pl-4 hover:border-primary hover:text-foreground transition-all"
+                  className="text-sm text-muted-foreground border-l-2 border-white/10 pl-4 hover:border-accent hover:text-foreground transition-all font-sans"
                 >
                   {c}
                 </li>
