@@ -141,40 +141,46 @@ export const Hero = () => {
               <span className="text-primary font-semibold">5+ deployed applications</span>, and specialized in React, TypeScript, Python, Django, Docker &amp; Google Vertex AI Gemini.
             </motion.p>
 
-            {/* Action Buttons */}
+            {/* Action Buttons with Magnetic Spring Hover */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
               className="flex flex-wrap gap-4 mb-12"
             >
-              <a
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 href="#projects"
-                className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-7 py-3.5 rounded-full hover:scale-105 transition-all glow shadow-xl shadow-primary/25"
+                className="group inline-flex items-center gap-2.5 bg-primary text-primary-foreground font-semibold px-7 py-3.5 rounded-full glow shadow-xl shadow-primary/25"
               >
                 Explore Projects
                 <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 href="/Rizwana_CV.pdf"
                 download="Rizwana_CV.pdf"
-                className="inline-flex items-center gap-2.5 border border-primary/50 bg-primary/10 text-primary font-semibold px-7 py-3.5 rounded-full hover:scale-105 hover:bg-primary/20 transition-all cursor-pointer shadow-lg shadow-primary/10"
+                className="inline-flex items-center gap-2.5 border border-primary/50 bg-primary/10 text-primary font-semibold px-7 py-3.5 rounded-full cursor-pointer shadow-lg shadow-primary/10 hover:bg-primary/20 transition-colors"
               >
                 <Download className="w-4.5 h-4.5" />
                 Download CV
-              </a>
+              </motion.a>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.97 }}
                 href="https://github.com/Rizwana-15112004"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-border bg-card/60 backdrop-blur-md text-foreground font-semibold px-6 py-3.5 rounded-full hover:border-primary hover:text-primary transition-all"
+                className="inline-flex items-center gap-2 border border-border bg-card/60 backdrop-blur-md text-foreground font-semibold px-6 py-3.5 rounded-full hover:border-primary hover:text-primary transition-colors"
               >
                 <Github className="w-4.5 h-4.5" />
                 GitHub
                 <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-              </a>
+              </motion.a>
             </motion.div>
 
             {/* Quick Stats Grid */}

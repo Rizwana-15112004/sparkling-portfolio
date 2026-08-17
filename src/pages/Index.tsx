@@ -9,6 +9,7 @@ import { Experience } from "@/components/portfolio/Experience";
 import { Contact } from "@/components/portfolio/Contact";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { Loader } from "@/components/portfolio/Loader";
+import { BackgroundCanvas } from "@/components/portfolio/BackgroundCanvas";
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -16,7 +17,8 @@ const Index = () => {
   return (
     <>
       {!loaded && <Loader onDone={() => setLoaded(true)} />}
-      <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+        <BackgroundCanvas />
         <ScrollProgress />
         <Navbar />
         <Hero />
