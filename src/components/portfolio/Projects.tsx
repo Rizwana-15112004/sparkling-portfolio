@@ -50,7 +50,7 @@ const projects = [
     year: "2024",
     desc: "Official recognition from the ICT Academy of Kerala & Google for Developers for completing the 'Generative AI with Vertex AI Gemini API' hands-on workshop at ICSET 2024.",
     tags: ["Vertex AI", "Gemini API", "Generative AI", "ICT Academy", "Google"],
-    live: "https://drive.google.com/file/d/1ZmbQqka0FmZWJFNwgYVopPQaveeDAD9_/view?usp=drive_link",
+    live: "/ICSET_2024_Certificate.jpg",
     accent: "accent",
   },
   {
