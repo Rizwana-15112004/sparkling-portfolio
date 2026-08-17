@@ -20,7 +20,7 @@ const projects = [
     desc: "Dual-mode real-time platform processing live IoT sensor data, BLE indoor geolocation & rescue triage. Offline-resilient with battery-backed local server failover.",
     tags: ["React", "TypeScript", "Python", "PostgreSQL", "WebSockets", "IoT"],
     github: "https://github.com/Rizwana-15112004/secure-haven-control",
-    live: "https://secure-haven-control-9ed7-1e5vgba2p-rizwanas-projects-a23354e2.vercel.app/",
+    live: "https://secure-haven-control-rjgn.vercel.app/login",
     featured: true,
     accent: "accent",
   },
