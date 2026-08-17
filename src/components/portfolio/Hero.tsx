@@ -183,7 +183,7 @@ export const Hero = () => {
               </motion.a>
             </motion.div>
 
-            {/* Quick Stats Grid */}
+            {/* Quick Stats Grid with Distinct Vibrant Accents */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -191,13 +191,13 @@ export const Hero = () => {
               className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl pt-8 border-t border-white/10"
             >
               {[
-                { value: "5+", label: "Deployed Apps", highlight: "React & Python" },
-                { value: "1", label: "Paying Client", highlight: "Django SDLC" },
-                { value: "0", label: "Backlogs", highlight: "Academic Record" },
-                { value: "2026", label: "BCA Graduate", highlight: "MG University" },
+                { value: "5+", label: "Deployed Apps", highlight: "React & Python", color: "text-primary", border: "hover:border-primary/50" },
+                { value: "1", label: "Paying Client", highlight: "Django SDLC", color: "text-accent", border: "hover:border-accent/50" },
+                { value: "0", label: "Backlogs", highlight: "Academic Record", color: "text-emerald-400", border: "hover:border-emerald-500/50" },
+                { value: "2026", label: "BCA Graduate", highlight: "MG University", color: "text-tertiary", border: "hover:border-tertiary/50" },
               ].map((stat, i) => (
-                <div key={i} className="glass-card p-4 rounded-2xl">
-                  <div className="font-syne font-extrabold text-3xl md:text-4xl text-primary">
+                <div key={i} className={`glass-card p-4 rounded-2xl border border-white/10 ${stat.border} transition-all duration-300`}>
+                  <div className={`font-syne font-extrabold text-3xl md:text-4xl ${stat.color}`}>
                     {stat.value}
                   </div>
                   <div className="text-xs font-semibold text-foreground mt-1">{stat.label}</div>
