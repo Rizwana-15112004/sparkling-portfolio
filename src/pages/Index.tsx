@@ -10,9 +10,13 @@ import { Contact } from "@/components/portfolio/Contact";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { Loader } from "@/components/portfolio/Loader";
 import { BackgroundCanvas } from "@/components/portfolio/BackgroundCanvas";
+import { RecruiterBar } from "@/components/portfolio/RecruiterBar";
+import { ArchitecturePlayground } from "@/components/portfolio/ArchitecturePlayground";
+import { HireModal } from "@/components/portfolio/HireModal";
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
+  const [isHireModalOpen, setIsHireModalOpen] = useState(false);
 
   return (
     <>
@@ -20,14 +24,17 @@ const Index = () => {
       <main className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
         <BackgroundCanvas />
         <ScrollProgress />
+        <RecruiterBar onOpenHireModal={() => setIsHireModalOpen(true)} />
         <Navbar />
         <Hero />
         <Marquee />
         <About />
+        <ArchitecturePlayground />
         <Skills />
         <Projects />
         <Experience />
         <Contact />
+        <HireModal isOpen={isHireModalOpen} onClose={() => setIsHireModalOpen(false)} />
       </main>
     </>
   );
