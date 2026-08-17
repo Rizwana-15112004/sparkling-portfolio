@@ -1,19 +1,4 @@
-import { useEffect, useRef } from "react";
-
-interface TechObject {
-  label: string;
-  subtext?: string;
-  x: number;
-  y: number;
-  z: number; // Depth factor (0.3 foreground to 1.8 background)
-  vx: number;
-  vy: number;
-  rot: number;
-  rotSpeed: number;
-  color: string;
-  glowColor: string;
-  size: number;
-}
+import { useEffect, useRef, useState } from "react";
 
 interface SparkParticle {
   x: number;
@@ -25,8 +10,26 @@ interface SparkParticle {
   color: string;
 }
 
+interface NeuralNode {
+  x: number;
+  y: number;
+  label: string;
+  vx: number;
+  vy: number;
+  pulse: number;
+  color: string;
+}
+
+const STORY_STAGES = [
+  { id: 1, title: "Stage 1: Binary & Code Genesis", subtitle: "Algorithmic Foundations & 0101 Matrix Streams" },
+  { id: 2, title: "Stage 2: AI Neural Constellation", subtitle: "Vertex AI, Gemini API & Neural Synaptic Network" },
+  { id: 3, title: "Stage 3: Full-Stack Architecture", subtitle: "React, Django, Python & Database Pipeline Links" },
+  { id: 4, title: "Stage 4: Production Deployment", subtitle: "5+ Deployed Apps, Paid Client & Rocket Launch Orbit" },
+];
+
 export const BackgroundCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [currentStageIndex, setCurrentStageIndex] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -39,70 +42,59 @@ export const BackgroundCanvas = () => {
     let height = (canvas.height = window.innerHeight);
 
     let time = 0;
+    let stage = 0;
+    let stageTimer = 0;
     const sparks: SparkParticle[] = [];
 
-    // Tech objects related to Rizwana's Full Stack & AI portfolio
-    const techItems = [
-      { label: "<React />", subtext: "Frontend Core", color: "#00f2fe", glowColor: "rgba(0, 242, 254, 0.8)" },
-      { label: "{ JSON }", subtext: "REST API Data", color: "#a855f7", glowColor: "rgba(168, 85, 247, 0.8)" },
-      { label: "⚡ Vertex AI", subtext: "Gemini 1.5", color: "#fbbf24", glowColor: "rgba(251, 191, 36, 0.8)" },
-      { label: "( Python )", subtext: "ML & Backend", color: "#00e676", glowColor: "rgba(0, 230, 118, 0.8)" },
-      { label: "01010101", subtext: "Binary Matrix", color: "#f43f5e", glowColor: "rgba(244, 63, 94, 0.8)" },
-      { label: "SQL & DB", subtext: "PostgreSQL", color: "#00f2fe", glowColor: "rgba(0, 242, 254, 0.8)" },
-      { label: ">_ terminal", subtext: "Node / Express", color: "#a855f7", glowColor: "rgba(168, 85, 247, 0.8)" },
-      { label: "⚡ Gemini API", subtext: "LLM Agent", color: "#fbbf24", glowColor: "rgba(251, 191, 36, 0.8)" },
-      { label: "TypeScript", subtext: "Strict Types", color: "#00e676", glowColor: "rgba(0, 230, 118, 0.8)" },
-      { label: "Tailwind", subtext: "Cyber UI", color: "#f43f5e", glowColor: "rgba(244, 63, 94, 0.8)" },
-      { label: "{ ...Props }", subtext: "Component", color: "#00f2fe", glowColor: "rgba(0, 242, 254, 0.8)" },
-      { label: "git commit", subtext: "Vercel / CI", color: "#a855f7", glowColor: "rgba(168, 85, 247, 0.8)" },
+    // Stage 1: Binary Columns
+    const columns = Math.floor(width / 40);
+    const rainDrops: number[] = Array.from({ length: columns }, () => Math.random() * -100);
+
+    // Stage 2: Neural Nodes
+    const neuralLabels = ["Vertex AI", "Gemini 1.5", "LLM Agent", "Prompt Eng", "Embeddings", "Neural Net", "NLP Matrix"];
+    const neuralNodes: NeuralNode[] = neuralLabels.map((label, i) => ({
+      x: Math.random() * (width - 200) + 100,
+      y: Math.random() * (height - 200) + 100,
+      label,
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: (Math.random() - 0.5) * 0.8,
+      pulse: Math.random() * Math.PI * 2,
+      color: i % 2 === 0 ? "#00f2fe" : "#a855f7",
+    }));
+
+    // Stage 3: Architecture Blocks
+    const archBlocks = [
+      { name: "<React.js />", role: "Frontend UI", color: "#00f2fe" },
+      { name: "Django API", role: "Backend Core", color: "#00e676" },
+      { name: "Python ML", role: "AI Pipeline", color: "#a855f7" },
+      { name: "PostgreSQL", role: "Database", color: "#fbbf24" },
+      { name: "Vercel / CI", role: "DevOps", color: "#f43f5e" },
     ];
+    const archNodes = archBlocks.map((b, i) => ({
+      ...b,
+      x: (width / 6) * (i + 1),
+      y: height * 0.5 + Math.sin(i) * 60,
+    }));
 
-    // Instantiate 3D Floating Tech Objects
-    const techObjects: TechObject[] = techItems.map((item, idx) => {
-      const z = 0.4 + (idx % 4) * 0.35; // depth layer
-      return {
-        ...item,
-        x: Math.random() * width,
-        y: Math.random() * height,
-        z,
-        vx: (Math.random() - 0.5) * (0.6 / z),
-        vy: (Math.random() - 0.5) * (0.6 / z),
-        rot: (Math.random() - 0.5) * 0.3,
-        rotSpeed: (Math.random() - 0.5) * 0.005,
-        size: (18 / z) + 6,
-      };
-    });
-
-    const mouse = { x: width / 2, y: height / 2, px: width / 2, py: height / 2 };
+    const mouse = { x: width / 2, y: height / 2 };
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.px = mouse.x;
-      mouse.py = mouse.y;
       mouse.x = e.clientX;
       mouse.y = e.clientY;
 
-      const dist = Math.hypot(mouse.x - mouse.px, mouse.y - mouse.py);
-      if (dist > 3) {
-        // Laser spark particles on mouse move
-        for (let i = 0; i < 2; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 2.5 + 1;
-          sparks.push({
-            x: mouse.x,
-            y: mouse.y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            radius: Math.random() * 2.5 + 1,
-            alpha: 0.95,
-            color: itemColor(i),
-          });
-        }
+      for (let i = 0; i < 2; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 2 + 1;
+        sparks.push({
+          x: mouse.x,
+          y: mouse.y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          radius: Math.random() * 2 + 1,
+          alpha: 0.9,
+          color: i % 2 === 0 ? "#00f2fe" : "#a855f7",
+        });
       }
-    };
-
-    const itemColor = (i: number) => {
-      const colors = ["rgba(0, 242, 254, ", "rgba(168, 85, 247, ", "rgba(244, 63, 94, ", "rgba(0, 230, 118, "];
-      return colors[i % colors.length];
     };
 
     const handleResize = () => {
@@ -116,143 +108,187 @@ export const BackgroundCanvas = () => {
 
     const render = () => {
       time += 0.015;
+      stageTimer += 0.015;
 
-      // Base Midnight Deep Space Background
+      // Cycle stage every 9 seconds
+      if (stageTimer > 9) {
+        stageTimer = 0;
+        stage = (stage + 1) % 4;
+        setCurrentStageIndex(stage);
+      }
+
+      // Base Deep Space Midnight Fill
       ctx.fillStyle = "#040615";
       ctx.fillRect(0, 0, width, height);
 
-      // 1. Cinematic Fluid Plasma Aurora Waves
+      // Background Fluid Aurora Fill
       ctx.save();
-      for (let w = 0; w < 2; w++) {
-        ctx.beginPath();
-        const waveYOffset = height * (0.28 + w * 0.38);
-        ctx.moveTo(0, waveYOffset);
-
-        for (let x = 0; x <= width; x += 25) {
-          const y =
-            waveYOffset +
-            Math.sin(x * 0.0035 + time * (1 + w * 0.2)) * 40 +
-            Math.cos(x * 0.007 - time * 0.7) * 30;
-          ctx.lineTo(x, y);
-        }
-
-        ctx.lineTo(width, height);
-        ctx.lineTo(0, height);
-        ctx.closePath();
-
-        const grad = ctx.createLinearGradient(0, waveYOffset - 80, width, waveYOffset + 180);
-        if (w === 0) {
-          grad.addColorStop(0, "rgba(168, 85, 247, 0.14)"); // Ultraviolet
-          grad.addColorStop(0.5, "rgba(0, 242, 254, 0.1)"); // Cyan
-          grad.addColorStop(1, "rgba(4, 6, 21, 0)");
-        } else {
-          grad.addColorStop(0, "rgba(244, 63, 94, 0.12)");  // Pink
-          grad.addColorStop(0.5, "rgba(0, 230, 118, 0.08)");// Emerald
-          grad.addColorStop(1, "rgba(4, 6, 21, 0)");
-        }
-        ctx.fillStyle = grad;
-        ctx.fill();
-      }
+      const waveGrad = ctx.createLinearGradient(0, 0, width, height);
+      waveGrad.addColorStop(0, "rgba(168, 85, 247, 0.08)");
+      waveGrad.addColorStop(0.5, "rgba(0, 242, 254, 0.06)");
+      waveGrad.addColorStop(1, "rgba(4, 6, 21, 0)");
+      ctx.fillStyle = waveGrad;
+      ctx.fillRect(0, 0, width, height);
       ctx.restore();
 
-      // 2. Draw Energy Beam Lines between nearby Tech Objects
-      for (let i = 0; i < techObjects.length; i++) {
-        for (let j = i + 1; j < techObjects.length; j++) {
-          const o1 = techObjects[i];
-          const o2 = techObjects[j];
-          const dx = o2.x - o1.x;
-          const dy = o2.y - o1.y;
-          const dist = Math.hypot(dx, dy);
+      // ==========================================
+      // RENDER CURRENT STORY STAGE ANIMATION
+      // ==========================================
 
-          if (dist < 220) {
-            const lineAlpha = (1 - dist / 220) * 0.25;
-            ctx.beginPath();
-            ctx.moveTo(o1.x, o1.y);
-            ctx.lineTo(o2.x, o2.y);
-            ctx.strokeStyle = `rgba(0, 242, 254, ${lineAlpha})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
+      if (stage === 0) {
+        // Stage 1: Binary Matrix Rain & Code Genesis
+        ctx.font = "14px 'JetBrains Mono', monospace";
+        ctx.fillStyle = "rgba(0, 242, 254, 0.25)";
+        for (let i = 0; i < rainDrops.length; i++) {
+          const char = Math.random() > 0.5 ? "1" : "0";
+          const x = i * 40;
+          const y = rainDrops[i];
+
+          ctx.fillText(char, x, y);
+
+          if (y > height && Math.random() > 0.975) {
+            rainDrops[i] = 0;
           }
+          rainDrops[i] += 2.5;
+        }
+      } else if (stage === 1) {
+        // Stage 2: AI Neural Constellation (Vertex AI & Gemini)
+        for (let i = 0; i < neuralNodes.length; i++) {
+          const n1 = neuralNodes[i];
+          n1.x += n1.vx;
+          n1.y += n1.vy;
+          n1.pulse += 0.03;
+
+          if (n1.x < 50 || n1.x > width - 50) n1.vx *= -1;
+          if (n1.y < 50 || n1.y > height - 50) n1.vy *= -1;
+
+          for (let j = i + 1; j < neuralNodes.length; j++) {
+            const n2 = neuralNodes[j];
+            const dist = Math.hypot(n2.x - n1.x, n2.y - n1.y);
+            if (dist < 280) {
+              ctx.beginPath();
+              ctx.moveTo(n1.x, n1.y);
+              ctx.lineTo(n2.x, n2.y);
+              const alpha = (1 - dist / 280) * 0.35;
+              ctx.strokeStyle = `rgba(168, 85, 247, ${alpha})`;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
+
+              // Synaptic energy pulse particle
+              const pulsePos = (Math.sin(time * 2 + i) + 1) / 2;
+              const px = n1.x + (n2.x - n1.x) * pulsePos;
+              const py = n1.y + (n2.y - n1.y) * pulsePos;
+              ctx.beginPath();
+              ctx.arc(px, py, 3, 0, Math.PI * 2);
+              ctx.fillStyle = "#00f2fe";
+              ctx.fill();
+            }
+          }
+
+          // Render Neural Node Badge
+          ctx.save();
+          ctx.beginPath();
+          const nodeRadius = 8 + Math.sin(n1.pulse) * 3;
+          ctx.arc(n1.x, n1.y, nodeRadius, 0, Math.PI * 2);
+          ctx.fillStyle = n1.color;
+          ctx.shadowBlur = 20;
+          ctx.shadowColor = n1.color;
+          ctx.fill();
+
+          ctx.font = "bold 13px 'Space Grotesk', sans-serif";
+          ctx.fillStyle = "#ffffff";
+          ctx.fillText(n1.label, n1.x + 14, n1.y + 4);
+          ctx.restore();
+        }
+      } else if (stage === 2) {
+        // Stage 3: Full-Stack Architecture Pipeline Wires
+        for (let i = 0; i < archNodes.length - 1; i++) {
+          const a1 = archNodes[i];
+          const a2 = archNodes[i + 1];
+
+          // Connecting wire curve
+          ctx.beginPath();
+          ctx.moveTo(a1.x, a1.y);
+          ctx.bezierCurveTo(a1.x + 50, a1.y - 40, a2.x - 50, a2.y + 40, a2.x, a2.y);
+          ctx.strokeStyle = "rgba(0, 242, 254, 0.3)";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Packet particle along wire
+          const tPacket = (time * 0.8 + i * 0.4) % 1;
+          const px = Math.pow(1 - tPacket, 3) * a1.x + 3 * Math.pow(1 - tPacket, 2) * tPacket * (a1.x + 50) + 3 * (1 - tPacket) * Math.pow(tPacket, 2) * (a2.x - 50) + Math.pow(tPacket, 3) * a2.x;
+          const py = Math.pow(1 - tPacket, 3) * a1.y + 3 * Math.pow(1 - tPacket, 2) * tPacket * (a1.y - 40) + 3 * (1 - tPacket) * Math.pow(tPacket, 2) * (a2.y + 40) + Math.pow(tPacket, 3) * a2.y;
+
+          ctx.beginPath();
+          ctx.arc(px, py, 4, 0, Math.PI * 2);
+          ctx.fillStyle = "#fbbf24";
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = "#fbbf24";
+          ctx.fill();
+        }
+
+        // Render Arch Cards
+        archNodes.forEach((node) => {
+          ctx.save();
+          ctx.translate(node.x, node.y + Math.sin(time * 1.5 + node.x) * 10);
+          ctx.beginPath();
+          ctx.roundRect(-60, -22, 120, 44, 8);
+          ctx.fillStyle = "rgba(10, 14, 32, 0.85)";
+          ctx.fill();
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = node.color;
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = node.color;
+          ctx.stroke();
+
+          ctx.font = "bold 13px 'Space Grotesk', sans-serif";
+          ctx.fillStyle = "#ffffff";
+          ctx.textAlign = "center";
+          ctx.fillText(node.name, 0, -2);
+          ctx.font = "10px 'Outfit', sans-serif";
+          ctx.fillStyle = "rgba(226, 232, 240, 0.75)";
+          ctx.fillText(node.role, 0, 12);
+          ctx.restore();
+        });
+      } else if (stage === 3) {
+        // Stage 4: Production Deployment & Orbital Rocket Bursts
+        const centerX = width / 2;
+        const centerY = height / 2;
+
+        // Rotating Orbital Rings
+        for (let r = 1; r <= 3; r++) {
+          ctx.save();
+          ctx.translate(centerX, centerY);
+          ctx.rotate(time * (r % 2 === 0 ? 0.3 : -0.3));
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 150 * r, 60 * r, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = r === 1 ? "rgba(0, 242, 254, 0.3)" : r === 2 ? "rgba(168, 85, 247, 0.3)" : "rgba(244, 63, 94, 0.3)";
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Satellite beacon particle
+          const bx = Math.cos(time * 2) * (150 * r);
+          const by = Math.sin(time * 2) * (60 * r);
+          ctx.beginPath();
+          ctx.arc(bx, by, 5, 0, Math.PI * 2);
+          ctx.fillStyle = "#00e676";
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = "#00e676";
+          ctx.fill();
+          ctx.restore();
         }
       }
 
-      // 3. Render 3D Floating Tech Objects Video Matrix
-      techObjects.forEach((obj) => {
-        // Continuous smooth drifting motion
-        obj.x += obj.vx;
-        obj.y += obj.vy + Math.sin(time + obj.x * 0.01) * 0.3;
-        obj.rot += obj.rotSpeed;
-
-        // Screen wrap-around bounce
-        if (obj.x < -80) obj.x = width + 80;
-        if (obj.x > width + 80) obj.x = -80;
-        if (obj.y < -50) obj.y = height + 50;
-        if (obj.y > height + 50) obj.y = -50;
-
-        // Interactive mouse magnetic reaction
-        const mdx = mouse.x - obj.x;
-        const mdy = mouse.y - obj.y;
-        const mdist = Math.hypot(mdx, mdy);
-        if (mdist < 180) {
-          const pushForce = (1 - mdist / 180) * 1.5;
-          obj.x -= (mdx / mdist) * pushForce;
-          obj.y -= (mdy / mdist) * pushForce;
-          obj.rot += 0.015;
-        }
-
-        // Render object with 2D transform
-        ctx.save();
-        ctx.translate(obj.x, obj.y);
-        ctx.rotate(obj.rot);
-
-        const scaleFactor = 1 / obj.z;
-        ctx.scale(scaleFactor, scaleFactor);
-
-        // Tech Tag Pill Container
-        const paddingX = 14;
-        const paddingY = 8;
-        ctx.font = "bold 14px Inter, system-ui, sans-serif";
-        const textMetrics = ctx.measureText(obj.label);
-        const boxWidth = textMetrics.width + paddingX * 2;
-        const boxHeight = 32;
-
-        // Glowing border container
-        ctx.beginPath();
-        ctx.roundRect(-boxWidth / 2, -boxHeight / 2, boxWidth, boxHeight, 8);
-        ctx.fillStyle = "rgba(10, 14, 32, 0.75)";
-        ctx.fill();
-
-        ctx.lineWidth = 1.5;
-        ctx.strokeStyle = obj.color;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = obj.glowColor;
-        ctx.stroke();
-
-        // Render Label Text
-        ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = obj.glowColor;
-        ctx.fillText(obj.label, 0, 0);
-
-        ctx.restore();
-      });
-
-      // 4. Render Mouse Spark Burst Particles
+      // Spark trail
       for (let i = sparks.length - 1; i >= 0; i--) {
         const s = sparks[i];
         s.x += s.vx;
         s.y += s.vy;
-        s.vx *= 0.95;
-        s.vy *= 0.95;
         s.alpha -= 0.03;
 
         ctx.beginPath();
-        ctx.arc(s.x, s.y, Math.max(0.5, s.radius), 0, Math.PI * 2);
-        ctx.fillStyle = `${s.color}${s.alpha})`;
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = `${s.color}1)`;
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `${s.color}, ${s.alpha})`;
         ctx.fill();
 
         if (s.alpha <= 0) sparks.splice(i, 1);
@@ -270,10 +306,27 @@ export const BackgroundCanvas = () => {
     };
   }, []);
 
+  const activeStage = STORY_STAGES[currentStageIndex];
+
   return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-100 transition-opacity duration-500"
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 pointer-events-none z-0 opacity-100 transition-opacity duration-500"
+      />
+
+      {/* Floating Story Stage Indicator Badge */}
+      <div className="fixed bottom-6 right-6 z-20 pointer-events-none hidden md:flex items-center gap-3 bg-[#0a0e20]/80 backdrop-blur-md px-4 py-2.5 rounded-full border border-primary/40 shadow-[0_0_25px_rgba(168,85,247,0.3)] animate-pulse">
+        <div className="w-2.5 h-2.5 rounded-full bg-accent animate-ping" />
+        <div>
+          <p className="text-xs font-semibold text-white tracking-wide">
+            {activeStage.title}
+          </p>
+          <p className="text-[10px] text-slate-400">
+            {activeStage.subtitle}
+          </p>
+        </div>
+      </div>
+    </>
   );
 };
