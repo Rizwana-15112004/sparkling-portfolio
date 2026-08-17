@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
+import { Cpu, Code2, Database, Brain, Cloud, Terminal } from "lucide-react";
+
+const proficiencies = [
+  { name: "Frontend Engineering (React, TS, Tailwind)", percentage: 90, color: "from-purple-500 to-indigo-500" },
+  { name: "Backend Architecture (Python, Django, PostgreSQL)", percentage: 85, color: "from-cyan-500 to-blue-500" },
+  { name: "AI & ML Automation (Vertex AI, Gemini, Agentic AI)", percentage: 80, color: "from-pink-500 to-rose-500" },
+  { name: "Cloud & DevOps (Docker, Vercel CI/CD, Nginx, Linux)", percentage: 75, color: "from-emerald-500 to-teal-500" },
+];
 
 const categories = [
   {
     title: "Frontend",
+    icon: Code2,
     color: "primary",
     skills: [
       { name: "React.js", icon: "react", color: "61DAFB" },
@@ -16,6 +25,7 @@ const categories = [
   },
   {
     title: "Backend",
+    icon: Database,
     color: "accent",
     skills: [
       { name: "Python", icon: "python", color: "FFD43B" },
@@ -27,6 +37,7 @@ const categories = [
   },
   {
     title: "AI Integration",
+    icon: Brain,
     color: "tertiary",
     skills: [
       { name: "Vertex AI Gemini", icon: "googlegemini", color: "8E75B2" },
@@ -36,6 +47,7 @@ const categories = [
   },
   {
     title: "DevOps & Cloud",
+    icon: Cloud,
     color: "accent",
     skills: [
       { name: "Docker", icon: "docker", color: "2496ED" },
@@ -47,6 +59,7 @@ const categories = [
   },
   {
     title: "Databases",
+    icon: Database,
     color: "primary",
     skills: [
       { name: "PostgreSQL", icon: "postgresql", color: "4169E1" },
@@ -55,7 +68,8 @@ const categories = [
     ],
   },
   {
-    title: "Tools",
+    title: "Tools & OS",
+    icon: Terminal,
     color: "accent",
     skills: [
       { name: "Git", icon: "git", color: "F05032" },
@@ -67,13 +81,10 @@ const categories = [
   },
 ];
 
-const dotColor = (c: string) =>
-  c === "primary" ? "bg-primary" : c === "accent" ? "bg-accent" : "bg-[hsl(330_90%_65%)]";
-
 export const Skills = () => {
   return (
-    <section id="skills" className="py-32 relative">
-      <div className="container mx-auto px-6">
+    <section id="skills" className="py-32 relative noise">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,16 +92,48 @@ export const Skills = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mb-16"
         >
-          <p className="font-mono text-sm text-primary mb-4">{"// stack"}</p>
-          <h2 className="font-display font-bold text-5xl md:text-7xl mb-6 leading-tight">
-            Hands-on across <span className="text-gradient-aurora">the full stack</span>.
+          <p className="font-mono text-sm text-primary mb-3 flex items-center gap-2">
+            <Cpu className="w-4 h-4" />
+            {"// TECHNICAL ARSENAL"}
+          </p>
+          <h2 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight">
+            Production Skills &amp; <span className="text-gradient-aurora">Proficiencies</span>.
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Tools and frameworks I've actually built and shipped projects with — not a buzzword list.
+          <p className="text-lg text-muted-foreground font-outfit">
+            Proven technologies I ship production applications with — tested across client projects, assignments, and AI pipelines.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Proficiency Progress Meters */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-6xl">
+          {proficiencies.map((p, i) => (
+            <motion.div
+              key={p.name}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="glass-card p-5 rounded-2xl border border-white/10"
+            >
+              <div className="flex items-center justify-between mb-2.5">
+                <span className="font-mono text-xs md:text-sm font-semibold text-foreground">{p.name}</span>
+                <span className="font-mono text-xs font-bold text-primary">{p.percentage}%</span>
+              </div>
+              <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${p.percentage}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, delay: 0.2 + i * 0.1, ease: "easeOut" }}
+                  className={`h-full rounded-full bg-gradient-to-r ${p.color}`}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Categories Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
           {categories.map((cat, i) => (
             <motion.div
               key={cat.title}
@@ -98,20 +141,20 @@ export const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative p-6 rounded-2xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/60 hover:-translate-y-2 transition-all duration-300 tilt-card overflow-hidden"
+              className="glass-card group relative p-6 rounded-2xl border border-white/10 hover:border-primary/50 transition-all duration-300"
             >
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-
               <div className="flex items-center gap-3 mb-5">
-                <span className={`w-2 h-2 rounded-full ${dotColor(cat.color)} animate-pulse`} />
-                <h3 className="font-display font-bold text-xl">{cat.title}</h3>
+                <div className="p-2 rounded-xl bg-primary/10 border border-primary/20 text-primary">
+                  <cat.icon className="w-5 h-5" />
+                </div>
+                <h3 className="font-syne font-bold text-xl">{cat.title}</h3>
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 {cat.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group/item flex flex-col items-center justify-center gap-2 p-3 rounded-xl bg-secondary/60 border border-border hover:border-primary hover:bg-secondary transition-all cursor-default"
+                    className="group/item flex flex-col items-center justify-center gap-2 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 hover:bg-white/10 transition-all cursor-default"
                     title={skill.name}
                   >
                     <img
@@ -122,7 +165,7 @@ export const Skills = () => {
                       loading="lazy"
                       className="group-hover/item:scale-125 group-hover/item:-rotate-6 transition-transform duration-300"
                     />
-                    <span className="text-[11px] text-muted-foreground text-center leading-tight">
+                    <span className="text-[11px] font-mono text-muted-foreground text-center leading-tight">
                       {skill.name}
                     </span>
                   </div>
@@ -135,3 +178,4 @@ export const Skills = () => {
     </section>
   );
 };
+
