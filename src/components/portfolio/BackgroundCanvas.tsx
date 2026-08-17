@@ -1,25 +1,5 @@
 import { useEffect, useRef } from "react";
 
-interface Particle {
-  x: number;
-  y: number;
-  z: number; // 3D depth perspective
-  vx: number;
-  vy: number;
-  vz: number;
-  radius: number;
-  color: string;
-  alpha: number;
-}
-
-interface TrailPoint {
-  x: number;
-  y: number;
-  radius: number;
-  alpha: number;
-  color: string;
-}
-
 export const BackgroundCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -33,58 +13,22 @@ export const BackgroundCanvas = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const colors = [
-      "rgba(139, 92, 246, ", // Violet
-      "rgba(6, 182, 212, ",   // Cyan
-      "rgba(236, 72, 153, ",  // Magenta
-      "rgba(16, 185, 129, ",  // Emerald
-      "rgba(255, 255, 255, ", // Star white
-    ];
+    // Grid Mesh parameters
+    const rows = 28;
+    const cols = 42;
+    let time = 0;
 
-    const particleCount = Math.min(Math.floor((width * height) / 14000), 90);
-    const particles: Particle[] = [];
-    const trailPoints: TrailPoint[] = [];
-
-    // Create 3D particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: (Math.random() - 0.5) * width * 1.5,
-        y: (Math.random() - 0.5) * height * 1.5,
-        z: Math.random() * 1000 + 1,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        vz: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 2 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.6 + 0.3,
-      });
-    }
-
-    const mouse = { x: width / 2, y: height / 2, px: width / 2, py: height / 2, radius: 180 };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.px = mouse.x;
-      mouse.py = mouse.y;
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-
-      // Add mouse comet trail point
-      if (Math.hypot(mouse.x - mouse.px, mouse.y - mouse.py) > 4) {
-        trailPoints.push({
-          x: mouse.x,
-          y: mouse.y,
-          radius: Math.random() * 4 + 2,
-          alpha: 0.8,
-          color: colors[Math.floor(Math.random() * (colors.length - 1))],
-        });
-      }
+    const mouse = {
+      x: width / 2,
+      y: height / 2,
+      targetX: width / 2,
+      targetY: height / 2,
+      radius: 200,
     };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        mouse.x = e.touches[0].clientX;
-        mouse.y = e.touches[0].clientY;
-      }
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
     };
 
     const handleResize = () => {
@@ -94,94 +38,122 @@ export const BackgroundCanvas = () => {
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove);
     window.addEventListener("resize", handleResize);
 
-    const fov = 350;
+    // Particle Starfield background
+    const starCount = 60;
+    const stars = Array.from({ length: starCount }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.5 + 0.5,
+      alpha: Math.random() * 0.7 + 0.2,
+      speed: Math.random() * 0.2 + 0.05,
+    }));
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Render mouse comet trail
-      for (let i = trailPoints.length - 1; i >= 0; i--) {
-        const pt = trailPoints[i];
-        ctx.beginPath();
-        ctx.arc(pt.x, pt.y, pt.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `${pt.color}${pt.alpha})`;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = `${pt.color}1)`;
-        ctx.fill();
+      // Smooth mouse easing
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
-        pt.alpha -= 0.025;
-        pt.radius *= 0.95;
-        if (pt.alpha <= 0 || pt.radius <= 0.2) {
-          trailPoints.splice(i, 1);
-        }
+      time += 0.015;
+
+      // 1. Render Floating Starfield Nebula
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        star.y -= star.speed;
+        if (star.y < 0) star.y = height;
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * (0.6 + Math.sin(time + i) * 0.4)})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "rgba(139, 92, 246, 0.8)";
+        ctx.fill();
       }
 
-      // Render 3D particles & connections
-      const screenCenterX = width / 2;
-      const screenCenterY = height / 2;
+      // 2. Render 3D Fluid Wave Mesh
+      const gridWidth = width * 1.4;
+      const gridHeight = height * 1.2;
+      const startX = (width - gridWidth) / 2;
+      const startY = height * 0.2;
 
-      for (let i = 0; i < particles.length; i++) {
-        const p1 = particles[i];
+      const stepX = gridWidth / cols;
+      const stepY = gridHeight / rows;
 
-        // 3D Motion
-        p1.x += p1.vx;
-        p1.y += p1.vy;
-        p1.z += p1.vz;
+      const gridPoints: { x: number; y: number; z: number; color: string }[][] = [];
 
-        if (p1.z <= 1) p1.z = 1000;
-        if (p1.z > 1000) p1.z = 1;
+      for (let r = 0; r <= rows; r++) {
+        const rowPoints = [];
+        for (let c = 0; c <= cols; c++) {
+          const baseX = startX + c * stepX;
+          const baseY = startY + r * stepY;
 
-        // 3D Perspective Projection
-        const scale = fov / (fov + p1.z);
-        const projX = p1.x * scale + screenCenterX;
-        const projY = p1.y * scale + screenCenterY;
+          // 3D Undulating Sine Wave math
+          const distFromCenter = Math.hypot(c - cols / 2, r - rows / 2);
+          const wave1 = Math.sin(c * 0.25 + time) * 18;
+          const wave2 = Math.cos(r * 0.25 + time * 1.2) * 18;
+          const wave3 = Math.sin((c + r) * 0.15 + time) * 12;
 
-        // Screen boundary wrapping
-        if (projX < 0 || projX > width) p1.vx *= -1;
-        if (projY < 0 || projY > height) p1.vy *= -1;
+          // Mouse Liquid Ripple displacement
+          const dxMouse = mouse.x - baseX;
+          const dyMouse = mouse.y - baseY;
+          const distMouse = Math.hypot(dxMouse, dyMouse);
+          let mouseFactor = 0;
+          if (distMouse < mouse.radius) {
+            mouseFactor = (1 - distMouse / mouse.radius) * 35;
+          }
 
-        // Mouse magnetic repulsion
-        const dxMouse = mouse.x - projX;
-        const dyMouse = mouse.y - projY;
-        const distMouse = Math.hypot(dxMouse, dyMouse);
-        if (distMouse < mouse.radius) {
-          const angle = Math.atan2(dyMouse, dxMouse);
-          const force = (mouse.radius - distMouse) / mouse.radius;
-          p1.x -= Math.cos(angle) * force * 4;
-          p1.y -= Math.sin(angle) * force * 4;
+          const z = wave1 + wave2 + wave3 - mouseFactor;
+
+          // Perspective tilt projection
+          const perspectiveScale = 1 + (r / rows) * 0.3;
+          const projX = (baseX - width / 2) * perspectiveScale + width / 2;
+          const projY = baseY + z * 0.8;
+
+          // Dynamic HSL Color based on height and position
+          const hue = 260 + Math.sin(time + distFromCenter * 0.1) * 45; // Violet to Cyan
+          const color = `hsl(${hue}, 95%, ${65 + Math.sin(z * 0.05) * 15}%)`;
+
+          rowPoints.push({ x: projX, y: projY, z, color });
         }
+        gridPoints.push(rowPoints);
+      }
 
-        // Draw Projected 3D Particle
-        const renderRadius = Math.max(0.5, p1.radius * scale * 1.5);
-        ctx.beginPath();
-        ctx.arc(projX, projY, renderRadius, 0, Math.PI * 2);
-        ctx.fillStyle = `${p1.color}${p1.alpha * scale})`;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = `${p1.color}0.8)`;
-        ctx.fill();
+      // Draw Grid Connections (Lines)
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const p1 = gridPoints[r][c];
+          const p2 = gridPoints[r][c + 1];
+          const p3 = gridPoints[r + 1][c];
 
-        // Connect nearby projected nodes
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const scale2 = fov / (fov + p2.z);
-          const projX2 = p2.x * scale2 + screenCenterX;
-          const projY2 = p2.y * scale2 + screenCenterY;
+          // Horizontal line
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          const alphaHoriz = Math.max(0.04, 0.25 - (r / rows) * 0.18);
+          ctx.strokeStyle = `rgba(139, 92, 246, ${alphaHoriz})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
 
-          const dx = projX - projX2;
-          const dy = projY - projY2;
-          const dist = Math.hypot(dx, dy);
+          // Vertical line
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p3.x, p3.y);
+          const alphaVert = Math.max(0.04, 0.25 - (r / rows) * 0.18);
+          ctx.strokeStyle = `rgba(6, 182, 212, ${alphaVert})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
 
-          if (dist < 120) {
+          // Draw glowing node particles at intersections
+          if ((r + c) % 2 === 0) {
             ctx.beginPath();
-            ctx.moveTo(projX, projY);
-            ctx.lineTo(projX2, projY2);
-            const lineAlpha = (1 - dist / 120) * 0.25 * scale;
-            ctx.strokeStyle = `rgba(139, 92, 246, ${lineAlpha})`;
-            ctx.lineWidth = 0.7 * scale;
-            ctx.stroke();
+            ctx.arc(p1.x, p1.y, Math.max(1, 2 + p1.z * 0.05), 0, Math.PI * 2);
+            ctx.fillStyle = p1.color;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = p1.color;
+            ctx.fill();
           }
         }
       }
@@ -193,7 +165,6 @@ export const BackgroundCanvas = () => {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
